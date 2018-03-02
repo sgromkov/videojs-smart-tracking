@@ -38,6 +38,14 @@
     "videojs",
     "videojs-plugin"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgromkov/videojs-smart-tracking"
+  },
+  "bugs": {
+    "url": "https://github.com/sgromkov/videojs-smart-tracking/issues"
+  },
+  "homepage": "https://github.com/sgromkov/videojs-smart-tracking",
   "author": "Sergey Gromkov <sgromkov@gmail.com>",
   "license": "MIT",
   "vjsstandard": {

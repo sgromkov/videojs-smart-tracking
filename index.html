@@ -21,7 +21,23 @@
   <script>
     (function(window, videojs) {
       var player = window.player = videojs('videojs-smart-tracking-player');
-      player.smartTracking();
+      player.smartTracking({
+        params: {
+          media_state_code: 1,
+          media_id: 133529,
+          player_version: "3.8.14", 
+          site_owner_id: 2,
+          main_rubric: 12189, 
+          uuid: "c41d1308d2c353db77e790c5e206f193",
+          uid: 12345,
+          flash_version: (typeof swfobject !== 'undefined') ? swfobject.getFlashPlayerVersion().major : "-1",
+          pid: "a41d1308d2c353db77e790c5e206f19a",
+          from: encodeURIComponent(document.referrer)
+        },
+        ads: false,
+        videoUrl: "https://matchtv.ru/vdl/adaptive/133529/playlist.m3u8",
+        serverUrl: "/sbtracking/vplayer"
+      });
     }(window, window.videojs));
   </script>
 </body>
