@@ -236,8 +236,8 @@ const smartTracker = {
     }
 
     if (typeof player.currentResolution === "function") {
-      resolutuion = player.currentResolution();
-      quality = resolutuion.sources[0].res;
+      resolution = player.currentResolution();
+      quality = resolution.sources[0].res;
     }
     
     params.bw = bandwidth;
