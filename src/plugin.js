@@ -330,9 +330,7 @@ const onPlayerReady = (player, options) => {
  *           An object of options left to the plugin author to define.
  */
 const smartTracking = function(options) {
-  this.ready(() => {
-    onPlayerReady(this, videojs.mergeOptions(defaults, options));
-  });
+  onPlayerReady(this, videojs.mergeOptions(defaults, options));
 };
 
 // Register the plugin with video.js.
