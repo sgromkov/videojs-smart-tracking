@@ -1,6 +1,13 @@
 import videojs from 'video.js';
 import {version as VERSION} from '../package.json';
 
+import videoStartTracking from './tracking/videoStart';
+import playerShowTracking from './tracking/playerShow';
+import pauseTracking from './tracking/pause';
+import bufferTracking from './tracking/buffering';
+
+/* eslint camelcase: ["error", {properties: "never"}] */
+
 // Default options for the plugin.
 const defaults = {
   params: {
@@ -71,7 +78,7 @@ const registerPlugin = videojs.registerPlugin || videojs.plugin;
 // const dom = videojs.dom || videojs;
 
 /**
- * Create XMLHttpRequest and send json data to server
+ * Create XMLHttpRequest and send json data to server.
  *
  * @function sendXMLHttpRequest
  * @param {string} url
@@ -89,8 +96,8 @@ const sendXMLHttpRequest = function(url, data) {
 };
 
 /**
- * Will return glue encode params
- * 
+ * Will return glue encode params.
+ *
  * @function getStickedParams
  * @param {Object} commonParams
  *        Plugin common params from options.params
@@ -98,11 +105,13 @@ const sendXMLHttpRequest = function(url, data) {
  *        Event individual params
  * @param {string} actionName
  *        Event name
- * @returns {Object}
+ * @return {Object}
  *          Glue encode params
  */
 const getStickedParams = function(commonParams, individualParams, actionName) {
-  const params = Object.assign({}, commonParams, individualParams, {action_name: actionName});
+  const params = Object.assign(
+    {}, commonParams, individualParams, {action_name: actionName}
+  );
   const data = {};
 
   for (const key in params) {
@@ -115,82 +124,55 @@ const getStickedParams = function(commonParams, individualParams, actionName) {
 };
 
 /**
- * Will return hostname from URL
- * 
+ * Will return hostname from URL.
+ *
  * @function getHostName
- * @param {string} url 
+ * @param {string} url
  *        Media url
- * @returns {string}
+ * @return {string}
  *          Hostname
  */
 const getHostName = function(url) {
   const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
-  
-  return (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) ? match[2] : null;
-}
 
-/** 
- * Tracker instance
+  return (match !== null &&
+    match.length > 2 &&
+    typeof match[2] === 'string' &&
+    match[2].length > 0) ? match[2] : null;
+};
+
+/**
+ * Tracker instance.
 */
 const smartTracker = {
   /**
    * @param {Player} player
-   *        A Video.js player object.
+   *        A Video.js player object
    */
   player: null,
 
   /**
    * @param {Object} [options={}]
-   *        A plain object containing options for the plugin.
+   *        A plain object containing options for the plugin
    */
   options: null,
 
   /**
-   * @param {number} initialTime
-   *        A current time in seconds when player was started
+   * Will return the current version of the player if it exists.
+   *
+   * @function getPlayerVersion
+   * @return {string}
+   *          Player version
    */
-  initialTime: 0,
-
-  initialTimeInterval: null,
-
-  setInitialTime: function() {
-    this.initialTime = Math.floor(this.player.currentTime());
-  },
-
-  videoStarted: function() {
-    const player = this.player;
-    const currentTime = Math.floor(player.currentTime());
-    const initialTime = this.initialTime;
-
-    return (currentTime >= initialTime + 3);
-  },
-
-  videoStartEventChecker: function() {
-    this.initialTimeInterval = setInterval(() => {
-      const player = this.player;
-      const additionalParams = {};
-      let duration = null;
-
-      if (this.videoStarted()) {
-        clearInterval(this.initialTimeInterval);
-
-        duration = player.duration();
-        if (!isFinite(duration)) {
-          duration = -2;
-        }
-
-        additionalParams.dur = duration;
-
-        this.postTrackingEvent('video_start', additionalParams);
-      }
-    
-    }, 1000);
-  },
-
-  getPlayerVersion: function() {
+  getPlayerVersion() {
     return (this.player.hasOwnProperty('VERSION')) ? this.player.VERSION : null;
   },
 
+  /**
+   * Set values of the params that should be initialized when loading the player.
+   *
+   * @function setInitialParams
+   */
   setInitialParams() {
     const params = this.options.params;
 
@@ -204,24 +186,24 @@ const smartTracker = {
   },
 
   /**
-   * TODO: make params definition
-   * 
-   * {number} null
-   * playeri: 0, 
-   * 
+   * Set values of the params that should be updated every tracking event.
+   *
+   * @function setUpdatedParams
+   * @todo make params definition
+   *
    * {number} null
    * has_a_block: 0,
-   * 
-   * Порядковый номер проигрываемого видео в рамках сессии (pid), 
+   *
+   * Порядковый номер проигрываемого видео в рамках сессии (pid),
    * инкрементируется при переходе к другому видео в рамках сессии (pid)
    * {number} 1
    * mid: 1,
-   * 
+   *
    * Current bitrate
    * {number} null
    * birt: null
    */
-  setUpdatedParams: function() {
+  setUpdatedParams() {
     const player = this.player;
     const params = this.options.params;
     const currentTime = Math.floor(player.currentTime());
@@ -235,13 +217,13 @@ const smartTracker = {
       bandwidth = this.player.tech_.hls.bandwidth;
     }
 
-    if (typeof player.currentResolution === "function") {
+    if (typeof player.currentResolution === 'function') {
       resolution = player.currentResolution();
       if (resolution.hasOwnProperty('sources') && resolution.sources.length > 0) {
         quality = resolution.sources[0].res;
       }
     }
-    
+
     params.bw = bandwidth;
     params.edge = hostName;
     params.playeri = quality;
@@ -258,7 +240,7 @@ const smartTracker = {
    * @param    {Object} individualParams
    *           Event individual params
    */
-  postTrackingEvent: function(actionName, individualParams = {}) {
+  postTrackingEvent(actionName, individualParams = {}) {
     this.setUpdatedParams();
 
     const data = getStickedParams(this.options.params, individualParams, actionName);
@@ -268,16 +250,16 @@ const smartTracker = {
 
   /**
    * Will set event listeners
-   * 
+   *
    * Should be called when tracker is init
    *
-   * @function start
+   * @function startTracking
    */
-  start() {
-    this.player.one('play', () => {
-      this.setInitialTime();
-      this.videoStartEventChecker();
-    });
+  startTracking() {
+    playerShowTracking.apply(this);
+    videoStartTracking.apply(this);
+    pauseTracking.apply(this);
+    bufferTracking.apply(this);
   },
 
   /**
@@ -289,11 +271,11 @@ const smartTracker = {
    * @param    {Object} [options={}]
    *           A plain object containing options for the plugin.
    */
-  init: function(player, options) {
+  init(player, options) {
     this.player = player;
     this.options = options;
     this.setInitialParams();
-    this.start();
+    this.startTracking();
   }
 };
 
