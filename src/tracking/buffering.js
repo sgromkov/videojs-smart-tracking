@@ -39,7 +39,7 @@ const bufferTracking = function() {
   };
 
   const onPlayerWaiting = () => {
-    if (resolutionChanged === false && bufferStart === false && scrubbing === false && 
+    if (resolutionChanged === false && bufferStart === false && scrubbing === false &&
       this.player.currentTime() > 0) {
       bufferStart = new Date();
       bufferPosition = +this.player.currentTime().toFixed(0);

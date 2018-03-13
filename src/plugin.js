@@ -211,10 +211,11 @@ const smartTracker = {
     let bandwidth = null;
     let resolution = null;
     let quality = null;
-    var playlistsMedia = null;
+    let playlistsMedia = null;
 
     if (player.hasOwnProperty('tech_') && player.tech_.hasOwnProperty('hls')) {
-      if (player.tech_.hls.hasOwnProperty('playlists') && typeof player.tech_.hls.playlists.media === 'function') {
+      if (player.tech_.hls.hasOwnProperty('playlists') &&
+      typeof player.tech_.hls.playlists.media === 'function') {
         playlistsMedia = this.player.tech_.hls.playlists.media();
         if (playlistsMedia && playlistsMedia.hasOwnProperty('uri')) {
           hostName = getHostName(playlistsMedia.uri);
