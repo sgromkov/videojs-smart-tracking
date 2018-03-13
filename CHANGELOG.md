@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.1.1 (2018-03-13)
+* [@sgromkov](https://github.com/sgromkov/): 
+    * Fix hls error in `player_show` tracker.
+    * Add resolutionchange checker in `buffering` tracker.
+
 ## 0.1.0 (2018-03-13)
 * [@sgromkov](https://github.com/sgromkov/): Add new trackers:
     * `pause`
