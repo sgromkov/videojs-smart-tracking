@@ -69,6 +69,7 @@ const bufferTracking = function() {
   this.player.on('pause', onPause);
   this.player.on('waiting', onPlayerWaiting);
   this.player.on('timeupdate', onTimeUpdate);
+  this.player.on('resolutionchange', onResolutionChange);
 };
 
 export default bufferTracking;
