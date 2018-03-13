@@ -211,10 +211,31 @@ const smartTracker = {
     let bandwidth = null;
     let resolution = null;
     let quality = null;
+    var playlistsMedia = null;
 
     if (player.hasOwnProperty('tech_') && player.tech_.hasOwnProperty('hls')) {
-      hostName = getHostName(this.player.tech_.hls.playlists.media().uri);
-      bandwidth = this.player.tech_.hls.bandwidth;
+      if (player.tech_.hls.hasOwnProperty('playlists') && typeof player.tech_.hls.playlists.media === 'function') {
+        playlistsMedia = this.player.tech_.hls.playlists.media();
+        if (playlistsMedia && playlistsMedia.hasOwnProperty('uri')) {
+          hostName = getHostName(playlistsMedia.uri);
+        }
+      }
+      if (player.tech_.hls.hasOwnProperty('bandwidth')) {
+        bandwidth = this.player.tech_.hls.bandwidth;
+      }
+    }
+
+    if (player.hasOwnProperty('tech_') && player.tech_.hasOwnProperty('hls')) {
+      if (player.tech_.hls.hasOwnProperty('playlists') &&
+      typeof player.tech_.hls.playlists.media === 'function') {
+        playlistsMedia = player.tech_.hls.playlists.media();
+        if (playlistsMedia && playlistsMedia.hasOwnProperty('uri')) {
+          hostName = getHostName(playlistsMedia.uri);
+        }
+      }
+      if (player.tech_.hls.hasOwnProperty('bandwidth')) {
+        bandwidth = player.tech_.hls.bandwidth;
+      }
     }
 
     if (typeof player.currentResolution === 'function') {
