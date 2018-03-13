@@ -10,6 +10,7 @@ const bufferTracking = function() {
   let bufferPosition = false;
   let bufferStart = false;
   let bufferEnd = false;
+  let resolutionChanged = false;
 
   const reset = function() {
     if (timer) {
@@ -19,6 +20,7 @@ const bufferTracking = function() {
     bufferPosition = false;
     bufferStart = false;
     bufferEnd = false;
+    resolutionChanged = false;
   };
 
   const onPause = () => {
@@ -32,8 +34,13 @@ const bufferTracking = function() {
     }
   };
 
+  const onResolutionChange = () => {
+    resolutionChanged = true;
+  };
+
   const onPlayerWaiting = () => {
-    if (bufferStart === false && scrubbing === false && this.player.currentTime() > 0) {
+    if (resolutionChanged === false && bufferStart === false && scrubbing === false && 
+      this.player.currentTime() > 0) {
       bufferStart = new Date();
       bufferPosition = +this.player.currentTime().toFixed(0);
 
