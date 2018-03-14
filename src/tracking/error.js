@@ -7,6 +7,8 @@ const errorTracking = function() {
   const player = this.player;
 
   player.on('error', (event) => {
+    event.stopImmediatePropagation();
+
     const error = player.error();
     let params = {};
 
