@@ -5,6 +5,7 @@ import videoStartTracking from './tracking/videoStart';
 import playerShowTracking from './tracking/playerShow';
 import pauseResumeTracking from './tracking/pauseResume';
 import bufferTracking from './tracking/buffering';
+import errorTracking from './tracking/error';
 
 /* eslint camelcase: ["error", {properties: "never"}] */
 
@@ -282,6 +283,7 @@ const smartTracker = {
     videoStartTracking.apply(this);
     pauseResumeTracking.apply(this);
     bufferTracking.apply(this);
+    errorTracking.apply(this);
   },
 
   /**
