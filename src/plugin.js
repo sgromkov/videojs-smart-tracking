@@ -3,7 +3,7 @@ import {version as VERSION} from '../package.json';
 
 import videoStartTracking from './tracking/videoStart';
 import playerShowTracking from './tracking/playerShow';
-// import pauseTracking from './tracking/pause';
+import pauseResumeTracking from './tracking/pauseResume';
 import bufferTracking from './tracking/buffering';
 
 /* eslint camelcase: ["error", {properties: "never"}] */
@@ -280,7 +280,7 @@ const smartTracker = {
   startTracking() {
     playerShowTracking.apply(this);
     videoStartTracking.apply(this);
-    // pauseTracking.apply(this);
+    pauseResumeTracking.apply(this);
     bufferTracking.apply(this);
   },
 
