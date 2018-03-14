@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.2.1 (2018-03-14)
+* [@sgromkov](https://github.com/sgromkov/): Add stopPropagation to `err` tracker.
+
 ## 0.2.0 (2018-03-14)
 * [@sgromkov](https://github.com/sgromkov/): Add `err` tracker.
 
