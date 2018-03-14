@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.2.0 (2018-03-14)
+* [@sgromkov](https://github.com/sgromkov/): Add `err` tracker.
+
 ## 0.1.2 (2018-03-14)
 * [@sgromkov](https://github.com/sgromkov/): 
     * Fix `pause` tracker.
