@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.1.2 (2018-03-14)
+* [@sgromkov](https://github.com/sgromkov/): 
+    * Fix `pause` tracker.
+    * Add `resume` tracker.
+
 ## 0.1.1 (2018-03-13)
 * [@sgromkov](https://github.com/sgromkov/): 
     * Fix hls error in `player_show` tracker.
