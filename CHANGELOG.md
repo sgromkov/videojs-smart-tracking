@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.3.0 (2018-03-15)
+* [@sgromkov](https://github.com/sgromkov/): 
+    * Off trackers except for `video_start` tracker.
+    * Rewrite url generating with new rules.
+
 ## 0.2.1 (2018-03-14)
 * [@sgromkov](https://github.com/sgromkov/): Add stopPropagation to `err` tracker.
 
