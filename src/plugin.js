@@ -2,10 +2,10 @@ import videojs from 'video.js';
 import {version as VERSION} from '../package.json';
 
 import videoStartTracking from './tracking/videoStart';
-import playerShowTracking from './tracking/playerShow';
-import pauseResumeTracking from './tracking/pauseResume';
-import bufferTracking from './tracking/buffering';
-import errorTracking from './tracking/error';
+// import playerShowTracking from './tracking/playerShow';
+// import pauseResumeTracking from './tracking/pauseResume';
+// import bufferTracking from './tracking/buffering';
+// import errorTracking from './tracking/error';
 
 /* eslint camelcase: ["error", {properties: "never"}] */
 
@@ -109,10 +109,8 @@ const sendXMLHttpRequest = function(url, data) {
  * @return {Object}
  *          Glue encode params
  */
-const getStickedParams = function(commonParams, individualParams, actionName) {
-  const params = Object.assign(
-    {}, commonParams, individualParams, {action_name: actionName}
-  );
+const getStickedParams = function(commonParams, individualParams) {
+  const params = Object.assign({}, commonParams, individualParams);
   const data = {};
 
   for (const key in params) {
@@ -122,6 +120,10 @@ const getStickedParams = function(commonParams, individualParams, actionName) {
   }
 
   return data;
+};
+
+const getUrl = function(server, site, action, version) {
+  return server + '/' + site + '/' + action + '/v' + version;
 };
 
 /**
@@ -187,9 +189,12 @@ const smartTracker = {
   },
 
   /**
-   * Set values of the params that should be updated every tracking event.
+   * Returns updated params with values of the params
+   * that should be updated every tracking event.
    *
-   * @function setUpdatedParams
+   * @function getUpdatedParams
+   * @return {Object}
+   *         params wich should be sends to server.
    * @todo make params definition
    *
    * {number} null
@@ -204,7 +209,7 @@ const smartTracker = {
    * {number} null
    * birt: null
    */
-  setUpdatedParams() {
+  getUpdatedParams() {
     const player = this.player;
     const params = this.options.params;
     const currentTime = Math.floor(player.currentTime());
@@ -252,6 +257,8 @@ const smartTracker = {
     params.playeri = quality;
     params.curr_ts = currentTime;
     params.n++;
+
+    return params;
   },
 
   /**
@@ -264,11 +271,14 @@ const smartTracker = {
    *           Event individual params
    */
   postTrackingEvent(actionName, individualParams = {}) {
-    this.setUpdatedParams();
+    const server = this.options.serverUrl;
+    const site = this.options.site;
+    const version = this.options.version;
+    const commonParams = this.getUpdatedParams();
+    const url = getUrl(server, site, actionName, version);
+    const data = getStickedParams(commonParams, individualParams);
 
-    const data = getStickedParams(this.options.params, individualParams, actionName);
-
-    sendXMLHttpRequest(this.options.serverUrl, data);
+    sendXMLHttpRequest(url, data);
   },
 
   /**
@@ -279,11 +289,11 @@ const smartTracker = {
    * @function startTracking
    */
   startTracking() {
-    playerShowTracking.apply(this);
+    // playerShowTracking.apply(this);
     videoStartTracking.apply(this);
-    pauseResumeTracking.apply(this);
-    bufferTracking.apply(this);
-    errorTracking.apply(this);
+    // pauseResumeTracking.apply(this);
+    // bufferTracking.apply(this);
+    // errorTracking.apply(this);
   },
 
   /**
