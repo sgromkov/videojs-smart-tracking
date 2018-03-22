@@ -89,19 +89,6 @@ const smartTracker = {
     if (player.hasOwnProperty('tech_') && player.tech_.hasOwnProperty('hls')) {
       if (player.tech_.hls.hasOwnProperty('playlists') &&
       typeof player.tech_.hls.playlists.media === 'function') {
-        playlistsMedia = this.player.tech_.hls.playlists.media();
-        if (playlistsMedia && playlistsMedia.hasOwnProperty('uri')) {
-          hostName = getHostName(playlistsMedia.uri);
-        }
-      }
-      if (player.tech_.hls.hasOwnProperty('bandwidth')) {
-        bandwidth = this.player.tech_.hls.bandwidth;
-      }
-    }
-
-    if (player.hasOwnProperty('tech_') && player.tech_.hasOwnProperty('hls')) {
-      if (player.tech_.hls.hasOwnProperty('playlists') &&
-      typeof player.tech_.hls.playlists.media === 'function') {
         playlistsMedia = player.tech_.hls.playlists.media();
         if (playlistsMedia && playlistsMedia.hasOwnProperty('uri')) {
           hostName = getHostName(playlistsMedia.uri);
@@ -109,6 +96,9 @@ const smartTracker = {
       }
       if (player.tech_.hls.hasOwnProperty('bandwidth')) {
         bandwidth = player.tech_.hls.bandwidth;
+        if (bandwidth > 0) {
+          bandwidth /= 1000;
+        }
       }
     }
 
