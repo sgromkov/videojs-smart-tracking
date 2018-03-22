@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.3.1 (2018-03-22)
+* [@sgromkov](https://github.com/sgromkov/): Divided the plugin into modules.
+
 ## 0.3.0 (2018-03-15)
 * [@sgromkov](https://github.com/sgromkov/): 
     * Off trackers except for `video_start` tracker.
