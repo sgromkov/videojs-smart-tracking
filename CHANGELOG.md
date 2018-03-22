@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.3.2 (2018-03-22)
+* [@sgromkov](https://github.com/sgromkov/): Converted bits to kilobits in `bandwidth`.
+
 ## 0.3.1 (2018-03-22)
 * [@sgromkov](https://github.com/sgromkov/): Divided the plugin into modules.
 
