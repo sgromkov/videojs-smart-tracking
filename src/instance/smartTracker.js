@@ -97,7 +97,7 @@ const smartTracker = {
       if (player.tech_.hls.hasOwnProperty('bandwidth')) {
         bandwidth = player.tech_.hls.bandwidth;
         if (bandwidth > 0) {
-          bandwidth /= 1000;
+          bandwidth = Math.floor(bandwidth / 1000);
         }
       }
     }
