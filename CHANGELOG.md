@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.3.3 (2018-03-22)
+* [@sgromkov](https://github.com/sgromkov/): Rounded `bandwidth` to whole numbers.
+
 ## 0.3.2 (2018-03-22)
 * [@sgromkov](https://github.com/sgromkov/): Converted bits to kilobits in `bandwidth`.
 
