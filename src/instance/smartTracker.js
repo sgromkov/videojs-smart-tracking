@@ -8,6 +8,7 @@ import videoStartTracking from '../tracking/videoStart';
 // import pauseResumeTracking from '../tracking/pauseResume';
 // import bufferTracking from '../tracking/buffering';
 // import errorTracking from '../tracking/error';
+// import newBitrateTracking from '../tracking/newBitrate';
 
 /* eslint camelcase: ["error", {properties: "never"}] */
 
@@ -151,6 +152,7 @@ const smartTracker = {
     // pauseResumeTracking.apply(this);
     // bufferTracking.apply(this);
     // errorTracking.apply(this);
+    // newBitrateTracking.apply(this);
   },
 
   /**
