@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.4.0 (2018-03-28)
+* [@sgromkov](https://github.com/sgromkov/):
+    * Add `new_bitrate` tracker.
+    * Add `birt` to common params.
+
 ## 0.3.3 (2018-03-22)
 * [@sgromkov](https://github.com/sgromkov/): Rounded `bandwidth` to whole numbers.
 
