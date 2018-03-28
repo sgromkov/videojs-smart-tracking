@@ -72,34 +72,34 @@ const smartTracker = {
    * инкрементируется при переходе к другому видео в рамках сессии (pid)
    * {number} 1
    * mid: 1,
-   *
-   * Current bitrate
-   * {number} null
-   * birt: null
    */
   getUpdatedParams() {
     const player = this.player;
     const params = this.options.params;
     const currentTime = Math.floor(player.currentTime());
     let hostName = null;
-    let bandwidth = null;
+    let videoBitrate = null;
+    let measuredBitrate = null;
     let resolution = null;
     let quality = null;
-    let playlistsMedia = null;
+    let playlist = null;
+    let hls = null;
 
-    if (player.hasOwnProperty('tech_') && player.tech_.hasOwnProperty('hls')) {
-      if (player.tech_.hls.hasOwnProperty('playlists') &&
-      typeof player.tech_.hls.playlists.media === 'function') {
-        playlistsMedia = player.tech_.hls.playlists.media();
-        if (playlistsMedia && playlistsMedia.hasOwnProperty('uri')) {
-          hostName = getHostName(playlistsMedia.uri);
+    if (player.tech_.hls) {
+      hls = player.tech_.hls;
+      if (hls.playlists && typeof hls.playlists.media === 'function') {
+        playlist = hls.playlists.media();
+        if (playlist) { 
+          if (playlist.uri) {
+            hostName = getHostName(playlist.uri);
+          }
+          if (playlist.attributes && playlist.attributes.BANDWIDTH) {
+            videoBitrate = Math.floor(playlist.attributes.BANDWIDTH / 1000);
+          }
         }
       }
-      if (player.tech_.hls.hasOwnProperty('bandwidth')) {
-        bandwidth = player.tech_.hls.bandwidth;
-        if (bandwidth > 0) {
-          bandwidth = Math.floor(bandwidth / 1000);
-        }
+      if (hls.bandwidth) {
+        measuredBitrate = Math.floor(hls.bandwidth / 1000);
       }
     }
 
@@ -110,7 +110,8 @@ const smartTracker = {
       }
     }
 
-    params.bw = bandwidth;
+    params.birt = videoBitrate;
+    params.bw = measuredBitrate;
     params.edge = hostName;
     params.playeri = quality;
     params.curr_ts = currentTime;
