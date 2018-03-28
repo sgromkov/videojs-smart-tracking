@@ -3,11 +3,12 @@ import getStickedParams from '../helpers/getStickedParams';
 import getHostName from '../helpers/getHostName';
 import getUrl from '../helpers/getUrl';
 
-import videoStartTracking from '../tracking/videoStart';
+// import videoStartTracking from '../tracking/videoStart';
 // import playerShowTracking from '../tracking/playerShow';
 // import pauseResumeTracking from '../tracking/pauseResume';
 // import bufferTracking from '../tracking/buffering';
 // import errorTracking from '../tracking/error';
+import seekTracking from '../tracking/seek';
 
 /* eslint camelcase: ["error", {properties: "never"}] */
 
@@ -147,10 +148,11 @@ const smartTracker = {
    */
   startTracking() {
     // playerShowTracking.apply(this);
-    videoStartTracking.apply(this);
+    // videoStartTracking.apply(this);
     // pauseResumeTracking.apply(this);
     // bufferTracking.apply(this);
     // errorTracking.apply(this);
+    seekTracking.apply(this);
   },
 
   /**
