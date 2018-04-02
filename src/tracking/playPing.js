@@ -76,11 +76,6 @@ const playPingTracking = function() {
         differenceTime = resultTime % 1000;
         timer.sended = fullTime - differenceTime;
         this.postTrackingEvent('play_ping', {secs: resultSeconds});
-
-        sum += resultSeconds;
-        console.log('secs', resultSeconds);
-        console.log('sum', sum);
-        console.log('diff', differenceTime);
       }
 
       if (this.player.ended()) {
