@@ -89,15 +89,48 @@ const playPingTracking = function() {
     }, 5000);
   };
 
-  this.player.on('play', () => {
-    timer.started = Date.now();
+  const onPLayerPlaying = (time) => {
+    timer.started = time;
     if (playPingTimer === null) {
       startPlayPingTimer();
     }
+  };
+
+  const onPlayerPause = (time) => {
+    timer.total = time;
+  };
+
+  this.player.on('playing', () => {
+    onPLayerPlaying(Date.now());
   });
 
   this.player.on('pause', () => {
-    timer.total = Date.now();
+    onPlayerPause(Date.now());
+  });
+
+  this.player.on('resolutionchange', () => {
+    onPlayerPause(Date.now());
+  });
+
+  this.player.on('ima', (event, data) => {
+    const currentTime = Date.now();
+    const google = window.google;
+
+    if (data.type === 'overlay' || !google) {
+      return;
+    }
+
+    switch (data.event) {
+    case google.ima.AdEvent.Type.STARTED:
+      if (data.type === 'preroll') {
+        timer.started = currentTime;
+      }
+      onPlayerPause(currentTime);
+      break;
+    case google.ima.AdEvent.Type.COMPLETE:
+      onPLayerPlaying(currentTime);
+      break;
+    }
   });
 
 };
