@@ -1,6 +1,6 @@
 {
   "name": "videojs-smart-tracking",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A Video.js plugin for smart tracking events",
   "main": "dist/videojs-smart-tracking.cjs.js",
   "module": "dist/videojs-smart-tracking.es.js",
