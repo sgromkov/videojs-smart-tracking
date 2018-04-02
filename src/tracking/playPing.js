@@ -86,7 +86,7 @@ const playPingTracking = function() {
       if (this.player.ended()) {
         stopPlayPingTimer();
       }
-    }, 5000);
+    }, 30000);
   };
 
   const onPLayerPlaying = (time) => {
