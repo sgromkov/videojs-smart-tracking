@@ -9,6 +9,7 @@ import videoStartTracking from '../tracking/videoStart';
 // import bufferTracking from '../tracking/buffering';
 // import errorTracking from '../tracking/error';
 // import newBitrateTracking from '../tracking/newBitrate';
+import playPingTracking from '../tracking/playPing';
 
 /* eslint camelcase: ["error", {properties: "never"}] */
 
@@ -89,7 +90,7 @@ const smartTracker = {
       hls = player.tech_.hls;
       if (hls.playlists && typeof hls.playlists.media === 'function') {
         playlist = hls.playlists.media();
-        if (playlist) { 
+        if (playlist) {
           if (playlist.uri) {
             hostName = getHostName(playlist.uri);
           }
@@ -149,11 +150,12 @@ const smartTracker = {
    */
   startTracking() {
     // playerShowTracking.apply(this);
-    videoStartTracking.apply(this);
+    // videoStartTracking.apply(this);
     // pauseResumeTracking.apply(this);
     // bufferTracking.apply(this);
     // errorTracking.apply(this);
     // newBitrateTracking.apply(this);
+    playPingTracking.apply(this);
   },
 
   /**
