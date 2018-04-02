@@ -47,7 +47,6 @@ Object.defineProperty(timer, 'sended', {
  */
 const playPingTracking = function() {
   let playPingTimer = null;
-  let sum = 0;
 
   const stopPlayPingTimer = () => {
     clearInterval(playPingTimer);
