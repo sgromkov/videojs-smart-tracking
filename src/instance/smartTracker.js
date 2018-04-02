@@ -150,7 +150,7 @@ const smartTracker = {
    */
   startTracking() {
     // playerShowTracking.apply(this);
-    // videoStartTracking.apply(this);
+    videoStartTracking.apply(this);
     // pauseResumeTracking.apply(this);
     // bufferTracking.apply(this);
     // errorTracking.apply(this);
