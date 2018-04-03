@@ -2,8 +2,10 @@
  * Tracks when the video is paused or resumed by user.
  *
  * @function pauseResumeTracking
+ * @param {Object} [options={}]
+ *        A plain object containing options for the tracker
  */
-const pauseResumeTracking = function() {
+const pauseResumeTracking = function(options = {}) {
   const player = this.player;
   let paused = false;
   let resumed = false;

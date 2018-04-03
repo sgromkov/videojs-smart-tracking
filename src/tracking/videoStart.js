@@ -2,34 +2,37 @@
  * Tracks once when the video is played at least 3 second.
  *
  * @function videoStartTracking
+ * @param {Object} [options={}]
+ *        A plain object containing options for the tracker
  */
-const videoStartTracking = function() {
-  let initialTimeInterval = null;
+const videoStartTracking = function(options = {}) {
+  let interval = null;
+  const startedTime = (options.time && options.time > 0) ? (options.time / 1000) : 0;
 
   /**
    * @param {number} initialTime
-   *        A current time in seconds when player was started
+   *        A current time in miliseconds when player was started
    */
   let initialTime = 0;
 
   const setInitialTime = () => {
-    initialTime = Math.floor(this.player.currentTime());
+    initialTime = this.player.currentTime();
   };
 
   const videoStarted = () => {
-    const currentTime = Math.floor(this.player.currentTime());
+    const currentTime = this.player.currentTime();
 
-    return (currentTime >= initialTime + 3);
+    return (currentTime >= initialTime + startedTime);
   };
 
   const videoStartEventChecker = () => {
-    initialTimeInterval = setInterval(() => {
+    interval = setInterval(() => {
       const player = this.player;
       const additionalParams = {};
       let duration = null;
 
       if (videoStarted()) {
-        clearInterval(initialTimeInterval);
+        clearInterval(interval);
 
         duration = player.duration();
         if (!isFinite(duration)) {

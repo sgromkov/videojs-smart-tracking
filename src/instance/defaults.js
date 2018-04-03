@@ -59,10 +59,28 @@ const defaults = {
      */
     bw: null
   },
-  live: false,
-  ads: false,
+  trackers: {
+    player_show: false,
+    video_start: false,
+    err: false,
+    reb_start: false,
+    reb_end: false,
+    seek: false,
+    new_bitrate: false,
+    pause: false,
+    resume: false,
+    play_ping: false,
+    a_err: false,
+    a_no: false,
+    a_view_start: false,
+    a_view_end: false,
+    reb: false,
+    pause_resume: false
+  },
   videoUrl: null,
-  serverUrl: null
+  serverUrl: null,
+  site: null,
+  version: 1
 };
 
 export default defaults;

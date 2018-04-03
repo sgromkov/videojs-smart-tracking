@@ -2,14 +2,7 @@ import sendXMLHttpRequest from '../helpers/sendXMLHttpRequest';
 import getStickedParams from '../helpers/getStickedParams';
 import getHostName from '../helpers/getHostName';
 import getUrl from '../helpers/getUrl';
-
-import videoStartTracking from '../tracking/videoStart';
-// import playerShowTracking from '../tracking/playerShow';
-// import pauseResumeTracking from '../tracking/pauseResume';
-// import bufferTracking from '../tracking/buffering';
-// import errorTracking from '../tracking/error';
-// import newBitrateTracking from '../tracking/newBitrate';
-import playPingTracking from '../tracking/playPing';
+import trackerHandler from './trackerHandler';
 
 /* eslint camelcase: ["error", {properties: "never"}] */
 
@@ -149,13 +142,7 @@ const smartTracker = {
    * @function startTracking
    */
   startTracking() {
-    // playerShowTracking.apply(this);
-    videoStartTracking.apply(this);
-    // pauseResumeTracking.apply(this);
-    // bufferTracking.apply(this);
-    // errorTracking.apply(this);
-    // newBitrateTracking.apply(this);
-    playPingTracking.apply(this);
+    trackerHandler.facade(this, this.options.trackers);
   },
 
   /**
