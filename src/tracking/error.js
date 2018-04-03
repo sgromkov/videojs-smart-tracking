@@ -2,8 +2,10 @@
  * Tracks when the error event fired.
  *
  * @function errorTracking
+ * @param {Object} [options={}]
+ *        A plain object containing options for the tracker
  */
-const errorTracking = function() {
+const errorTracking = function(options = {}) {
   const player = this.player;
 
   player.on('error', (event) => {

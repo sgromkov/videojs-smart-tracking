@@ -2,9 +2,11 @@
  * Tracks when the video player is marked as buffering
  * and waits until the player has made some progress.
  *
- * @function bufferTracking
+ * @function bufferingTracking
+ * @param {Object} [options={}]
+ *        A plain object containing options for the tracker
  */
-const bufferTracking = function() {
+const bufferingTracking = function(options = {}) {
   let timer = null;
   let scrubbing = false;
   let bufferPosition = false;
@@ -72,4 +74,4 @@ const bufferTracking = function() {
   this.player.on('resolutionchange', onResolutionChange);
 };
 
-export default bufferTracking;
+export default bufferingTracking;

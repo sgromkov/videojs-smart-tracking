@@ -44,17 +44,20 @@ Object.defineProperty(timer, 'sended', {
  * Tracks every 30 seconds and save the time viewed by the user.
  *
  * @function playPingTracking
+ * @param {Object} [options={}]
+ *        A plain object containing options for the tracker
  */
-const playPingTracking = function() {
-  let playPingTimer = null;
+const playPingTracking = function(options = {}) {
+  let interval = null;
+  const intervalDuration = (options.time && options.time > 0) ? options.time : 30000;
 
   const stopPlayPingTimer = () => {
-    clearInterval(playPingTimer);
-    playPingTimer = null;
+    clearInterval(interval);
+    interval = null;
   };
 
   const startPlayPingTimer = () => {
-    playPingTimer = setInterval(() => {
+    interval = setInterval(() => {
       const currentTime = Date.now();
       const sendedTime = timer.sended;
       let fullTime = 0;
@@ -80,12 +83,12 @@ const playPingTracking = function() {
       if (this.player.ended()) {
         stopPlayPingTimer();
       }
-    }, 30000);
+    }, intervalDuration);
   };
 
   const onPLayerPlaying = (time) => {
     timer.started = time;
-    if (playPingTimer === null) {
+    if (interval === null) {
       startPlayPingTimer();
     }
   };
