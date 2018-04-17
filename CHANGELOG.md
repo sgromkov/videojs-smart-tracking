@@ -1,5 +1,9 @@
 # CHANGELOG
 
+<a name="0.6.1"></a>
+## [0.6.1](https://github.com/sgromkov/videojs-smart-tracking/compare/v0.6.0...v0.6.1) (2018-04-17)
+* [@sgromkov](https://github.com/sgromkov/): Fix `Cannot read property 'hasOwnProperty' of undefined` in resolution.
+
 <a name="0.6.0"></a>
 ## [0.6.0](https://github.com/sgromkov/videojs-smart-tracking/compare/v0.5.0...v0.6.0) (2018-04-03)
 * [@sgromkov](https://github.com/sgromkov/): Add `trackers` option into plugin. This option allows you to control trackers from the outside.
