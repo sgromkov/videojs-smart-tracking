@@ -99,7 +99,8 @@ const smartTracker = {
 
     if (typeof player.currentResolution === 'function') {
       resolution = player.currentResolution();
-      if (resolution.hasOwnProperty('sources') && resolution.sources.length > 0) {
+      if (resolution && resolution.hasOwnProperty('sources') &&
+        resolution.sources.length > 0) {
         quality = resolution.sources[0].res;
       }
     }
